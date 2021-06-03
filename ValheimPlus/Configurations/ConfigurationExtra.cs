@@ -101,7 +101,7 @@ namespace ValheimPlus.Configurations
         {
             FileIniDataParser parser = new FileIniDataParser();
             IniData configdata = parser.ReadFile(filename);
-
+            
             Configuration conf = new Configuration();
             foreach (var prop in typeof(Configuration).GetProperties())
             {

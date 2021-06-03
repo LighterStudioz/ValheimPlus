@@ -1,0 +1,21 @@
+// VRMモデルのスケール　Default=1.1
+ModelScale=1.1
+
+// VRMモデルの明るさ　Default=0.8
+ModelBrightness=0.8
+
+// カメラの位置をVRMモデルの身長に合わせるか　true:合わせる false:合わせない Default=true
+FixCameraHeight=true
+
+// モデルのY座標オフセット Default=0.0
+ModelOffsetY=0.0
+
+// MToonシェーダを使うか true:使う false:使わない Default=false
+// 使う場合はグラフィック設定の「SSAO」を Off にしてください。
+UseMToonShader=false
+
+// 右手の装備位置のオフセット Default=(0,0,0)
+RightHandEuqipPos=(0,0,0)
+
+// 左手の装備位置のオフセット Default=(0,0,0)
+LeftHandEuqipPos=(0,0,0)

@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Net;
 using ValheimPlus.Configurations;
+using ValheimPlus.GameClasses;
 using ValheimPlus.RPC;
 using ValheimPlus.UI;
 
@@ -16,7 +17,7 @@ namespace ValheimPlus
     [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", version)]
     public class ValheimPlusPlugin : BaseUnityPlugin
     {
-        public const string version = "0.9.8.1";
+        public const string version = "2.0.0.0";
         public static string newestVersion = "";
         public static bool isUpToDate = false;
 
@@ -29,11 +30,11 @@ namespace ValheimPlus
         public static Harmony harmony = new Harmony("mod.valheim_plus");
 
         // Project Repository Info
-        public static string Repository = "https://github.com/valheimPlus/ValheimPlus";
-        public static string ApiRepository = "https://api.github.com/repos/valheimPlus/valheimPlus/tags";
+        public static string Repository = "https://github.com/LighterStudioz/ValheimPlus";
+        public static string ApiRepository = "https://api.github.com/repos/LighterStudioz/valheimPlus/tags";
 
         // Website INI for auto update
-        public static string iniFile = "https://raw.githubusercontent.com/valheimPlus/ValheimPlus/" + version + "/valheim_plus.cfg";
+        public static string iniFile = "https://raw.githubusercontent.com/LighterStudioz/ValheimPlus/" + version + "/valheim_plus.cfg";
 
         // Awake is called once when both the game and the plug-in are loaded
         void Awake()
@@ -48,8 +49,6 @@ namespace ValheimPlus
             {
                 
                 Logger.LogInfo("Configuration file loaded succesfully.");
-
-
                 harmony.PatchAll();
 
                 isUpToDate = !IsNewVersionAvailable();
@@ -63,17 +62,17 @@ namespace ValheimPlus
                     Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
                 }
 
-                //Create VPlus dir if it does not exist.
+                // Create VPlus dir if it does not exist.
                 if (!Directory.Exists(VPlusDataDirectoryPath)) Directory.CreateDirectory(VPlusDataDirectoryPath);
 
-                //Logo
-                //if (Configuration.Current.ValheimPlus.IsEnabled && Configuration.Current.ValheimPlus.mainMenuLogo)
+                // Logo
+                // if (Configuration.Current.ValheimPlus.IsEnabled && Configuration.Current.ValheimPlus.mainMenuLogo)
                 // No need to exclude with IF, this only loads the images, causes issues if this config setting is changed
                 VPlusMainMenu.Load();
-
                 VPlusSettings.Load();
+                VPlusShaders.Load();
 
-                //Map Sync Save Timer
+                // Map Sync Save Timer
                 if (ZNet.m_isServer && Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
                 {
                     mapSyncSaveTimer.AutoReset = true;
@@ -115,7 +114,7 @@ namespace ValheimPlus
                 newestVersion = "Unknown";
             }
 
-            //Parse versions for proper version check
+            // Parse versions for proper version check
             if (System.Version.TryParse(newestVersion, out System.Version newVersion))
             {
                 if (System.Version.TryParse(version, out System.Version currentVersion))
@@ -126,7 +125,7 @@ namespace ValheimPlus
                     }
                 }
             }
-            else //Fallback version check if the version parsing fails
+            else // Fallback version check if the version parsing fails
             {
                 if (newestVersion != version)
                 {
